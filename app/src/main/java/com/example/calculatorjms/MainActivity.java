@@ -2,6 +2,7 @@ package com.example.calculatorjms;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Integer firstNumber;
     private Integer secondNumber;
+    private Integer result;
+    private Integer positionTypeOperation;
 
 
     @Override
@@ -95,10 +98,33 @@ public class MainActivity extends AppCompatActivity {
 
             if (typeOfOperation.isEmpty() && !tvResult.getText().toString().isEmpty()){
                 firstNumber = Integer.parseInt(tvResult.getText().toString());
+                typeOfOperation="+";
                 tvResult.setText(tvResult.getText()+"+");
-            }else{
-                tvResult.setText(firstNumber.toString());
-                tvResult.setText(tvResult.getText()+"+");
+            }else if(!typeOfOperation.isEmpty()){
+
+                positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
+                secondNumber=Integer.valueOf(tvResult.getText().toString().substring(positionTypeOperation + 1));
+
+
+
+                if (secondNumber==null){
+                    tvResult.setText(firstNumber.toString());
+                    tvResult.setText(tvResult.getText()+"+");
+                }else{
+
+                    if(typeOfOperation.equalsIgnoreCase("+")){
+                        result= firstNumber+secondNumber;
+                    }else if (typeOfOperation.equalsIgnoreCase("-")){
+                        result= firstNumber-secondNumber;
+                    }else if (typeOfOperation.equalsIgnoreCase("*")){
+                        result= firstNumber*secondNumber;
+                    }else{
+                        result= firstNumber/secondNumber;
+                    }
+                    firstNumber=result;
+                    typeOfOperation="-";
+                    tvResult.setText(result.toString()+"-");
+                }
             }
 
 
@@ -108,10 +134,31 @@ public class MainActivity extends AppCompatActivity {
 
             if (typeOfOperation.isEmpty() && !tvResult.getText().toString().isEmpty()){
                 firstNumber = Integer.parseInt(tvResult.getText().toString());
+                typeOfOperation="-";
                 tvResult.setText(tvResult.getText()+"-");
-            }else{
-                tvResult.setText(firstNumber.toString());
-                tvResult.setText(tvResult.getText()+"-");
+            }else if(!typeOfOperation.isEmpty()){
+
+                positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
+                secondNumber= Integer.valueOf(tvResult.getText().toString().substring(positionTypeOperation + 1));
+
+                if (secondNumber==null){
+                    tvResult.setText(firstNumber.toString());
+                    tvResult.setText(tvResult.getText()+"-");
+                }else{
+
+                    if(typeOfOperation.equalsIgnoreCase("+")){
+                        result= firstNumber+secondNumber;
+                    }else if (typeOfOperation.equalsIgnoreCase("-")){
+                        result= firstNumber-secondNumber;
+                    }else if (typeOfOperation.equalsIgnoreCase("*")){
+                        result= firstNumber*secondNumber;
+                    }else{
+                        result= firstNumber/secondNumber;
+                    }
+                    firstNumber=result;
+                    typeOfOperation="-";
+                    tvResult.setText(result.toString()+"-");
+                }
             }
 
 
