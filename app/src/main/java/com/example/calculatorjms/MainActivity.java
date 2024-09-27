@@ -94,19 +94,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        btnAdd.setOnClickListener(v -> {
+        btnCalculate.setOnClickListener(v -> {
 
-            if (typeOfOperation.isEmpty() && !tvResult.getText().toString().isEmpty()){
-                firstNumber = Integer.parseInt(tvResult.getText().toString());
-                typeOfOperation="+";
-                tvResult.setText(tvResult.getText()+"+");
-            }else if(!typeOfOperation.isEmpty()){
-
+            if(!typeOfOperation.isEmpty()){
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
                 if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1){
                     tvResult.setText(firstNumber.toString());
-                    tvResult.setText(tvResult.getText()+"+");
+                    tvResult.setText(tvResult.getText()+typeOfOperation);
                 }else{
                     if (firstNumber<0 && typeOfOperation.equalsIgnoreCase("-")){
                         positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation, positionTypeOperation+1);
@@ -116,22 +111,49 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if(typeOfOperation.equalsIgnoreCase("+")){
-                        result= firstNumber+secondNumber;
-                    }else if (typeOfOperation.equalsIgnoreCase("-")){
-                        result= firstNumber-secondNumber;
-                    }else if (typeOfOperation.equalsIgnoreCase("*")){
-                        result= firstNumber*secondNumber;
+
+                        result=firstNumber+secondNumber;
+                        tvResult.setText(result.toString());
+
+                    }else if(typeOfOperation.equalsIgnoreCase("-")){
+
+                        result=firstNumber-secondNumber;
+                        tvResult.setText(result.toString());
+
+                    }else if(typeOfOperation.equalsIgnoreCase("*")){
+
+                        result=firstNumber*secondNumber;
+                        tvResult.setText(result.toString());
+
                     }else{
-                        result= firstNumber/secondNumber;
+                        result=firstNumber/secondNumber;
+                        tvResult.setText(result.toString());
                     }
+
                     firstNumber=result;
-                    typeOfOperation="+";
-                    tvResult.setText(result.toString()+"+");
 
                 }
+
             }
+        });
 
+        btnAdd.setOnClickListener(v -> {
 
+            if (typeOfOperation.isEmpty() && !tvResult.getText().toString().isEmpty()){
+                firstNumber = Integer.parseInt(tvResult.getText().toString());
+                typeOfOperation="+";
+                tvResult.setText(tvResult.getText()+"+");
+            }else{
+
+                positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
+
+                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1){
+                    tvResult.setText(firstNumber.toString());
+                    tvResult.setText(tvResult.getText()+"+");
+                    typeOfOperation="+";
+                }
+
+}
         });
 
         btnSubstract.setOnClickListener(v -> {
@@ -140,42 +162,16 @@ public class MainActivity extends AppCompatActivity {
                 firstNumber = Integer.parseInt(tvResult.getText().toString());
                 typeOfOperation="-";
                 tvResult.setText(tvResult.getText()+"-");
-            }else if(!typeOfOperation.isEmpty()){
+            }else{
 
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
-                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("")){
+                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1){
                     tvResult.setText(firstNumber.toString());
                     tvResult.setText(tvResult.getText()+"-");
-                }else{
-                    if (firstNumber<0 && typeOfOperation.equalsIgnoreCase("-")){
-                            positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation, positionTypeOperation+1);
-
-                            if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("")){
-                                tvResult.setText(firstNumber.toString());
-                                tvResult.setText(tvResult.getText()+"-");
-                            }else{
-                                secondNumber=Integer.valueOf(tvResult.getText().toString().substring(positionTypeOperation + 1));
-                            }
-
-                    }else{
-                        secondNumber=Integer.valueOf(tvResult.getText().toString().substring(positionTypeOperation + 1));
-                    }
-
-                    if(typeOfOperation.equalsIgnoreCase("+")){
-                        result= firstNumber+secondNumber;
-                    }else if (typeOfOperation.equalsIgnoreCase("-")){
-                        result= firstNumber-secondNumber;
-                    }else if (typeOfOperation.equalsIgnoreCase("*")){
-                        result= firstNumber*secondNumber;
-                    }else{
-                        result= firstNumber/secondNumber;
-                    }
-                    firstNumber=result;
                     typeOfOperation="-";
-                    tvResult.setText(result.toString()+"-");
-
                 }
+
             }
 
 
