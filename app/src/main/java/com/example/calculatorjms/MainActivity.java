@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -94,6 +95,17 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        btnDelete.setOnClickListener(v -> {
+
+            tvResult.setText("");
+            firstNumber=null;
+            secondNumber=null;
+            positionTypeOperation=null;
+            typeOfOperation="";
+            result=null;
+
+        });
+
         btnCalculate.setOnClickListener(v -> {
 
             if(!typeOfOperation.isEmpty()){
@@ -105,32 +117,48 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     if (firstNumber<0 && typeOfOperation.equalsIgnoreCase("-")){
                         positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation, positionTypeOperation+1);
-                        secondNumber=Integer.valueOf(tvResult.getText().toString().substring(positionTypeOperation + 1));
+                       if(!tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("")){
+                           secondNumber=Integer.valueOf(tvResult.getText().toString().substring(positionTypeOperation + 1));
+                       }
+
                     }else{
                         secondNumber=Integer.valueOf(tvResult.getText().toString().substring(positionTypeOperation + 1));
                     }
 
-                    if(typeOfOperation.equalsIgnoreCase("+")){
+                    if (secondNumber!=null){
 
-                        result=firstNumber+secondNumber;
-                        tvResult.setText(result.toString());
+                        if(typeOfOperation.equalsIgnoreCase("+")){
 
-                    }else if(typeOfOperation.equalsIgnoreCase("-")){
+                            result=firstNumber+secondNumber;
+                            tvResult.setText(result.toString());
 
-                        result=firstNumber-secondNumber;
-                        tvResult.setText(result.toString());
+                        }else if(typeOfOperation.equalsIgnoreCase("-")){
 
-                    }else if(typeOfOperation.equalsIgnoreCase("*")){
+                            result=firstNumber-secondNumber;
+                            tvResult.setText(result.toString());
 
-                        result=firstNumber*secondNumber;
-                        tvResult.setText(result.toString());
+                        }else if(typeOfOperation.equalsIgnoreCase("*")){
 
-                    }else{
-                        result=firstNumber/secondNumber;
-                        tvResult.setText(result.toString());
+                            result=firstNumber*secondNumber;
+                            tvResult.setText(result.toString());
+
+                        }else{
+                            if (secondNumber==0){
+                                Toast.makeText(this, "No se puede dividir entre cero", Toast.LENGTH_LONG).show();
+                                tvResult.setText("");
+                            }else{
+                                result=firstNumber/secondNumber;
+                                tvResult.setText(result.toString());
+                            }
+                        }
+
+                        firstNumber=result;
+                        secondNumber=null;
+                        typeOfOperation="";
+
                     }
 
-                    firstNumber=result;
+
 
                 }
 
@@ -143,15 +171,15 @@ public class MainActivity extends AppCompatActivity {
                 firstNumber = Integer.parseInt(tvResult.getText().toString());
                 typeOfOperation="+";
                 tvResult.setText(tvResult.getText()+"+");
-            }else{
+            }else if (!typeOfOperation.isEmpty()){
 
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
-                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1){
-                    tvResult.setText(firstNumber.toString());
-                    tvResult.setText(tvResult.getText()+"+");
-                    typeOfOperation="+";
-                }
+                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0) {
+                tvResult.setText(firstNumber.toString());
+                tvResult.setText(tvResult.getText() + "+");
+                typeOfOperation = "+";
+            }
 
 }
         });
@@ -162,14 +190,54 @@ public class MainActivity extends AppCompatActivity {
                 firstNumber = Integer.parseInt(tvResult.getText().toString());
                 typeOfOperation="-";
                 tvResult.setText(tvResult.getText()+"-");
-            }else{
+            }else if (!typeOfOperation.isEmpty()){
 
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
-                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1){
+                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
                     tvResult.setText(firstNumber.toString());
                     tvResult.setText(tvResult.getText()+"-");
                     typeOfOperation="-";
+                }
+
+            }
+
+
+        });
+
+        btnMultiply.setOnClickListener(v -> {
+
+            if (typeOfOperation.isEmpty() && !tvResult.getText().toString().isEmpty()){
+                firstNumber = Integer.parseInt(tvResult.getText().toString());
+                typeOfOperation="*";
+                tvResult.setText(tvResult.getText()+"*");
+            }else if (!typeOfOperation.isEmpty()){
+
+                positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
+
+                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
+                    tvResult.setText(firstNumber.toString());
+                    tvResult.setText(tvResult.getText()+"*");
+                    typeOfOperation="*";
+                }
+            }
+
+        });
+
+        btnDivide.setOnClickListener(v -> {
+
+            if (typeOfOperation.isEmpty() && !tvResult.getText().toString().isEmpty()){
+                firstNumber = Integer.parseInt(tvResult.getText().toString());
+                typeOfOperation="/";
+                tvResult.setText(tvResult.getText()+"/");
+            }else if (!typeOfOperation.isEmpty()){
+
+                positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
+
+                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
+                    tvResult.setText(firstNumber.toString());
+                    tvResult.setText(tvResult.getText()+"/");
+                    typeOfOperation="/";
                 }
 
             }
