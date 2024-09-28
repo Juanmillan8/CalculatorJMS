@@ -175,11 +175,18 @@ public class MainActivity extends AppCompatActivity {
 
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
-                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0) {
-                tvResult.setText(firstNumber.toString());
-                tvResult.setText(tvResult.getText() + "+");
-                typeOfOperation = "+";
-            }
+                if(firstNumber<0 && typeOfOperation.equalsIgnoreCase("-")){
+                    positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation, positionTypeOperation+1);
+                    if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("")){
+                        tvResult.setText(firstNumber.toString());
+                        tvResult.setText(tvResult.getText()+"+");
+                        typeOfOperation="+";
+                    }
+                }else if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
+                    tvResult.setText(firstNumber.toString());
+                    tvResult.setText(tvResult.getText()+"+");
+                    typeOfOperation="+";
+                }
 
 }
         });
@@ -194,11 +201,20 @@ public class MainActivity extends AppCompatActivity {
 
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
-                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
+                if(firstNumber<0 && typeOfOperation.equalsIgnoreCase("-")){
+                    positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation, positionTypeOperation+1);
+                    if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("")){
+                        tvResult.setText(firstNumber.toString());
+                        tvResult.setText(tvResult.getText()+"-");
+                        typeOfOperation="-";
+                    }
+                }else if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
                     tvResult.setText(firstNumber.toString());
                     tvResult.setText(tvResult.getText()+"-");
                     typeOfOperation="-";
                 }
+
+
 
             }
 
@@ -215,10 +231,17 @@ public class MainActivity extends AppCompatActivity {
 
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
-                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
+                if(firstNumber<0 && typeOfOperation.equalsIgnoreCase("-")){
+                    positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation, positionTypeOperation+1);
+                    if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("")){
+                        tvResult.setText(firstNumber.toString());
+                        tvResult.setText(tvResult.getText()+"/");
+                        typeOfOperation="/";
+                    }
+                }else if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
                     tvResult.setText(firstNumber.toString());
-                    tvResult.setText(tvResult.getText()+"*");
-                    typeOfOperation="*";
+                    tvResult.setText(tvResult.getText()+"/");
+                    typeOfOperation="/";
                 }
             }
 
@@ -234,7 +257,14 @@ public class MainActivity extends AppCompatActivity {
 
                 positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation);
 
-                if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
+                if(firstNumber<0 && typeOfOperation.equalsIgnoreCase("-")){
+                    positionTypeOperation = tvResult.getText().toString().indexOf(typeOfOperation, positionTypeOperation+1);
+                    if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("")){
+                        tvResult.setText(firstNumber.toString());
+                        tvResult.setText(tvResult.getText()+"/");
+                        typeOfOperation="/";
+                    }
+                }else if(tvResult.getText().toString().substring(positionTypeOperation + 1).equalsIgnoreCase("") || positionTypeOperation==-1 || firstNumber<0){
                     tvResult.setText(firstNumber.toString());
                     tvResult.setText(tvResult.getText()+"/");
                     typeOfOperation="/";
