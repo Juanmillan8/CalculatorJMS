@@ -1,6 +1,7 @@
 package com.example.calculatorjms;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -151,20 +152,28 @@ public class MainActivity extends AppCompatActivity {
                 //la variable decimalPart contendrá el número 498 y la variable numberDecimalScreen contendrá el número 498 también, por lo tanto es un
                 //número entero, pero si en realidad es un número decimal la variable decimalPart contendrá el número 23 y la variable numberDecimalScreen
                 //contendrá el número 89.23 por ejemplo
-                if(!decimalpart.equalsIgnoreCase(numberDecimalScreen)){
+                if(!decimalpart.equalsIgnoreCase(numberDecimalScreen)) {
 
                     //Si el número por pantalla en realidad es un decimal almacenamos ahora su parte entera, osea, la parte de antes de la coma
-                    Long wholePart = Long.parseLong(numberDecimalScreen.substring(0, numberDecimalScreen.indexOf('.')));
+                    String wholePart = numberDecimalScreen.substring(0, numberDecimalScreen.indexOf('.'));
 
-                    //Había un problema en los casos en los que el número con el que tratábamos era un -0 seguido de cualquier dígito (por ejemplo -0,67), dicho problema
-                    //era que a la hora de almacenar la parte entera de este número (-0) se almacenaba sin el signo -, por lo tanto, si queríamos añadir más dígitos a
-                    //ese tipo de números, el signo - se eliminaba, es por ello que antes de añadir el dígito seleccionado comprobamos si el número por pantalla
-                    //es menor de 0 y si su parte entera es 0
-                    if(Double.parseDouble(numberDecimalScreen)<0 && wholePart==0){
-                        //Si el número es menor de 0 y su parte entera es 0 haremos lo siguiente
-                        //A la hora de mostrar el número por pantalla añadiéndole el nuevo dígito, también tenemos en cuenta el signo -, por lo tanto, primero añadimos al
-                        //texto por pantalla el signo, posteriormente la parte entera, luego el nuevo dígito, la coma y por último la parte decimal
-                        tvResult.setText(String.valueOf("-"+wholePart)+digit+"."+decimalpart);
+                    //Había un problema en los casos en los que la parte entera del número con el que tratábamos era un 0 (por ejemplo 0,67),
+                    //dicho problema era que si queríamos añadir más dígitos a ese tipo de números, el dígito 0 se quedaba, por ejemplo, si queríamos añadir un 3
+                    //quedaba así "03,67" es por ello que antes de añadir el dígito seleccionado comprobamos si la parte entera del número por pantalla es 0
+                    if (wholePart.equalsIgnoreCase("0")) {
+                        //Si la parte entera del número es 0 haremos lo siguiente
+                        //Se establece el texto del tvResult concatenando primero el dígito que el usuario haya seleccionando, eliminando asi el 0 a la izquierda que no
+                        //servía para nada nada, posteriormente añadimos la coma y por último la parte decimal
+                        tvResult.setText(String.valueOf(digit) + "." + decimalpart);
+
+                        //También tenemos que tener en cuenta los casos donde la parte entera sea -0, es un caso muy parecido al anterior, solo que en este al tener
+                        //un - delante del 0 tenemos que hacer otro bloque else if aparte, ya que el texto almacenado en la variable wholePart ya no es 0, sino -0,
+                        //aquí hacemos lo mismo de antes, solo que en este caso tenemos en cuenta el signo -
+                    }else if (wholePart.equalsIgnoreCase("-0")){
+                        //Primero añadimos al texto por pantalla el signo -, posteriormente añadimos el nuevo dígito, luego va
+                        //la coma y por último la parte decimal
+                        tvResult.setText(String.valueOf("-"+digit) + "." + decimalpart);
+
                     }else{
                         //De lo contrario, si el número es mayor de 0 o su parte entera no es 0, simplemente añadimos la parte entera, el nuevo dígito,
                         //la coma y la parte decimal, sin signo ni nada

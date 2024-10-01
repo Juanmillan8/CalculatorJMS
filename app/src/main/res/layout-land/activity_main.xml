@@ -14,6 +14,21 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <!--
+        Este TexvtView tiene unos atributos que no habíamos visto anteriormente, estos son los siguientes
+
+        autoSizeTextType "uniform": sirve para que el tamaño del texto se ajuste automáticamente dentro del TextView,
+        con esto conseguimos que a la hora de insertar un número muy grande, en lugar de que el TextView se haga más grande es
+        el texto el que se hace más pequeño de la misma forma que ocurre con la calculadora de Windows cuando añadimos números muy largos
+
+        autoSizeMinTextSize: es el tamaño mínimo que tomará el texto, osea, cuanto más grande se haga el texto, este se irá
+        reduciendo hasta alcanzar el tamaño que nosotros le indiquemos aquí
+
+        autoSizeMaxTextSize: es el tamaño máximo del texto, osea, el texto empezará tomando el tamaño que nosotros le indiquemos aquí
+
+        autoSizeStepGranularity: aquí indicamos que cada vez que el texto disminuya o aumente lo haga en pasos de 2sp en 2sp (o el valor
+        que nosotros le indiquemos)
+        -->
         <TextView
             android:id="@+id/tvResult"
             android:layout_width="match_parent"
@@ -22,8 +37,10 @@
             android:background="@drawable/border_textview"
             android:textAlignment="textEnd"
             android:textColor="#673AB7"
-            android:textSize="30sp"
             android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeStepGranularity="2sp"
             />
 
         <GridLayout
