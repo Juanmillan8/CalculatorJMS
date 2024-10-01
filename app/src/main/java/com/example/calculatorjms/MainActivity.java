@@ -283,29 +283,36 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    //Aquí se llama al método isWhole para verificar si el resultado es un entero, si es un entero se convierte
-                    //el número Double a int y posteriormente se sustituye lo que hay en el tvResult por dicho número, por ejemplo, si la variable
-                    //result contiene un 5.0 se convierte a 5 pasándolo a int, de esta forma se mostrará por pantalla como "5"
-                    if(isWhole(result)){
-                        Integer integerResult = (int) result.doubleValue();
-                        tvResult.setText(integerResult.toString());
-                    }else{
-                        //De lo contrario, si el resultado no es un entero dicho número lo almacenamos primero con solo dos decimales, posteriormente se
-                        //convierte a BigDecimal, esto se hace para manejar los decimales de forma precisa y evitar errores de representación y de redondeo
-                        //que pueden ocurrir con los tipo Double, luego de convertir el número a BigDecimal lo convertimos a una cadena de texto sin notación
-                        //científica y se sustituye lo que hay en el tvResult por dicho número, con esto conseguimos mostrar el primer número de forma
-                        //correcta sin ningún tipo de error
-                        result = Double.parseDouble(String.format("%.2f", result));
-                        BigDecimal bigDecimalResult = new BigDecimal(result.toString());
-                        tvResult.setText(bigDecimalResult.toPlainString());
+                    //Si el secondNumber es diferente de 0 significa que la operación se ha podido llevar a cabo, por lo tanto haremos lo siguiente
+                    if(secondNumber!=0){
+
+                        //Aquí se llama al método isWhole para verificar si el resultado es un entero, si es un entero se convierte
+                        //el número Double a int y posteriormente se sustituye lo que hay en el tvResult por dicho número, por ejemplo, si la variable
+                        //result contiene un 5.0 se convierte a 5 pasándolo a int, de esta forma se mostrará por pantalla como "5"
+                        if(isWhole(result)){
+                            Integer integerResult = (int) result.doubleValue();
+                            tvResult.setText(integerResult.toString());
+                        }else{
+                            //De lo contrario, si el resultado no es un entero dicho número lo almacenamos primero con solo dos decimales, posteriormente se
+                            //convierte a BigDecimal, esto se hace para manejar los decimales de forma precisa y evitar errores de representación y de redondeo
+                            //que pueden ocurrir con los tipo Double, luego de convertir el número a BigDecimal lo convertimos a una cadena de texto sin notación
+                            //científica y se sustituye lo que hay en el tvResult por dicho número, con esto conseguimos mostrar el primer número de forma
+                            //correcta sin ningún tipo de error
+                            result = Double.parseDouble(String.format("%.2f", result));
+                            BigDecimal bigDecimalResult = new BigDecimal(result.toString());
+                            tvResult.setText(bigDecimalResult.toPlainString());
+                        }
+
+                        //Una vez realizada la operación almacenaremos el resultado en la variable firstNumber para así poder seguir posteriormente realizando otras
+                        //operaciones con el resultado de esta operación, posteriormente la variable result pasa a ser nula para que no haya ningún error en el
+                        //resto del código y el tipo de operación que había almacenado pasa a estar vacío
+                        firstNumber=result;
+                        secondNumber=null;
+                        typeOfOperation="";
+
                     }
 
-                    //Una vez realizada la operación almacenaremos el resultado en la variable firstNumber para así poder seguir posteriormente realizando otras
-                    //operaciones con el resultado de esta operación, posteriormente la variable result pasa a ser nula para que no haya ningún error en el
-                    //resto del código y el tipo de operación que había almacenado pasa a estar vacío
-                    firstNumber=result;
-                    secondNumber=null;
-                    typeOfOperation="";
+
                 }
             }
         }
