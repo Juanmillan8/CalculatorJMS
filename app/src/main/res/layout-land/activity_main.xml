@@ -8,11 +8,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <!--
         Este TexvtView tiene unos atributos que no habíamos visto anteriormente, estos son los siguientes
@@ -33,21 +37,26 @@
             android:id="@+id/tvResult"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="5dp"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/border_textview"
             android:textAlignment="textEnd"
             android:textColor="#673AB7"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeMaxTextSize="25sp"
-            android:autoSizeStepGranularity="2sp"
-            />
+            android:textColorHint="#673AB7" />
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:rowCount="4">
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/btnDelete"
@@ -267,7 +276,4 @@
                 android:textSize="24sp" />
 
         </GridLayout>
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
